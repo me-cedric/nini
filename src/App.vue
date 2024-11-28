@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { format } from 'date-fns'
-import { el } from 'date-fns/locale'
 import { onMounted, ref } from 'vue'
-type Post = {
+interface Post {
   uri: string
   cid: string
   author: {
@@ -18,10 +17,6 @@ type Post = {
     createdAt: string
     embed: {
       $type: string
-      record: {
-        cid: string
-        uri: string
-      }
     }
     facets: [
       {
@@ -41,27 +36,6 @@ type Post = {
     text: string
   }
   $type: string
-  record: {
-    uri: string
-    cid: string
-    name: string
-    purpose: 'app.bsky.graph.defs#curatelist'
-    listItemCount: 24
-    indexedAt: '2024-11-28T08:23:02.354Z'
-    labels: []
-    creator: {
-      did: 'did:plc:zgdyboeugy3hzuga4ni3ttpa'
-      handle: 'societesimulator.bsky.social'
-      displayName: 'nini le gooner'
-      avatar: 'https://cdn.bsky.app/img/avatar/plain/did:plc:zgdyboeugy3hzuga4ni3ttpa/bafkreicwslzcsoiqrysmyolp3isqmoofo5zj2lbc45txhnaeas2wi4vjsq@jpeg'
-      labels: []
-      createdAt: '2023-09-20T18:27:11.878Z'
-      description: 'kifeur2iep'
-      indexedAt: '2024-11-25T15:50:10.146Z'
-    }
-    description: "Des personnes cool qui font (majoritairement) des streams twitch que j'apprécie particulièrement\nactu politique, react, blabla, jeux, dev, goofy, y'a de tout et dans tous les horaires (bon je regarde quasi jamais le soir donc y'aura bcp de journée dsl)\nContactez moi si vous voulez plus y être !!!"
-    $type: 'app.bsky.graph.defs#listView'
-  }
   replyCount: number
   repostCount: number
   likeCount: number
@@ -105,7 +79,10 @@ onMounted(() => {
       >)
       <a
         :href="
-          'https://bsky.app/profile/' + post.author.did + '/post/' + /[^/]*$/.exec(post.uri)[0]
+          'https://bsky.app/profile/' +
+          post?.author?.did +
+          '/post/' +
+          /[^/]*$/.exec(post?.uri ?? '')?.[0]
         "
         >{{ date }}</a
       >
