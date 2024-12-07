@@ -50,9 +50,10 @@ fetch(
 )
   .then((response) => response.json())
   .then((data) => {
-    const selectedPost = data.posts[Math.floor(Math.random() * data.posts.length)]
+    const selectedPost = data?.posts[Math.floor(Math.random() * (data?.posts?.length ?? 0))]
+    if (!selectedPost) return
     post.value = selectedPost
-    date.value = format(new Date(selectedPost.record.createdAt), 'MMMM d, yyyy HH:mm')
+    date.value = format(new Date(selectedPost?.record?.createdAt), 'MMMM d, yyyy HH:mm')
   })
 
 onMounted(() => {
