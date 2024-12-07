@@ -46,7 +46,7 @@ interface Post {
 const post = ref<Post | null>(null)
 const date = ref<string | null>(null)
 fetch(
-  'https://public.api.bsky.app/xrpc/app.bsky.feed.searchPosts?limit=100&q=from%3A%40societesimulator.pornhub.alsace',
+  'https://public.api.bsky.app/xrpc/app.bsky.feed.searchPosts?limit=100&q=from%3A%40nini.pornhub.alsace',
 )
   .then((response) => response.json())
   .then((data) => {
